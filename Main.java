@@ -9,9 +9,10 @@ public class Main{
         catalogo[1] = new Produto("Limão", "002", 0.50);
         catalogo[2] = new Produto("Sorvete", "003", 29.99);
 
-            System.out.printf("%-15s %-15s %-15s\n", "PRODUTO", "CÓDIGO", "PREÇO");
+            System.out.printf("\n%-15s %-15s %-15s\n", "PRODUTO", "CÓDIGO", "PREÇO");
             for (int i = 0; i < catalogo.length; i++){
                 System.out.printf("%-15s %-15s %-15.2f\n", catalogo[i].getNome(), catalogo[i].getCodigo(), catalogo[i].getPreco());
+                System.out.printf("\n");
             }
 
                 System.out.println("MENU: ");
@@ -20,6 +21,7 @@ public class Main{
                 System.out.println("3: Excluir item");
                 System.out.println("4: Alterar quantidade");
                 System.out.println("5: Finalizar");
+                System.out.printf("\n");
     
     Scanner scanner = new Scanner(System.in);
 
@@ -51,6 +53,7 @@ public class Main{
                                 itemComprado.setQtd(qtdDigitada);
 
                                 minhaFatura.adicionarItem(itemComprado);
+                                System.out.println("Item comprado com sucesso!");
                                 
                                 break;
                             }

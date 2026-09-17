@@ -24,9 +24,10 @@ public class Fatura {
     public void alterarQtd(String codigoDigitado, int novaQtd){
         for(int i = 0; i < this.itens.size(); i++){
             if(this.itens.get(i).getProduto().getCodigo().equals(codigoDigitado)){
-                System.out.printf("Quantidade antiga: %d", this.itens.get(i).getQtd());
+                System.out.println("Quantidade alterada com sucesso!");
+                System.out.printf("Quantidade antiga: %d\n", this.itens.get(i).getQtd());
                 this.itens.get(i).setQtd(novaQtd);
-                System.out.printf("Nova quantidade: %d", this.itens.get(i).getQtd());
+                System.out.printf("Nova quantidade: %d\n", this.itens.get(i).getQtd());
                 break;
             }
         }
