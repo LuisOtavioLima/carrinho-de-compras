@@ -3,17 +3,15 @@ import java.util.Scanner;
 public class Main{
     public static void main(String[] args){
 
-    Produto[] catalogo = new Produto[3];
+    Estoque meuEstoque = new Estoque();
     
-        catalogo[0] = new Produto("Maça", "001", 2.50);
-        catalogo[1] = new Produto("Limão", "002", 0.50);
-        catalogo[2] = new Produto("Sorvete", "003", 29.99);
+        meuEstoque.adicionarProduto(new Produto("Maça", "001", 2.50, 20));
+        meuEstoque.adicionarProduto(new Produto("Limão", "002", 0.50, 15));
+        meuEstoque.adicionarProduto(new Produto("Sorvete", "003", 29.99, 3));
 
-            System.out.printf("\n%-15s %-15s %-15s\n", "PRODUTO", "CÓDIGO", "PREÇO");
-            for (int i = 0; i < catalogo.length; i++){
-                System.out.printf("%-15s %-15s %-15.2f\n", catalogo[i].getNome(), catalogo[i].getCodigo(), catalogo[i].getPreco());
-                System.out.printf("\n");
-            }
+            System.out.println("Catálogo de produtos: ");
+            meuEstoque.listaProdutos();
+            System.out.println("-------------------------------\n");
 
                 System.out.println("MENU: ");
                 System.out.println("1: Comprar");
@@ -21,7 +19,8 @@ public class Main{
                 System.out.println("3: Excluir item");
                 System.out.println("4: Alterar quantidade");
                 System.out.println("5: Finalizar");
-                System.out.printf("\n");
+                System.out.println("6: Consultar produto");
+                System.out.println("-------------------------------\n");
     
     Scanner scanner = new Scanner(System.in);
 
@@ -40,25 +39,27 @@ public class Main{
                 case 1:
                     System.out.println("Digite o código do produto: ");
                     codigoDigitado = scanner.nextLine();
-                    System.out.println("Digite a quantidade: ");
-                    qtdDigitada = scanner.nextInt();
-                    scanner.nextLine();
 
-                        for(int i = 0; i < catalogo.length; i++){
-                            if(catalogo[i].getCodigo().equals(codigoDigitado)){
-                                
-                                //instância do novo item
-                                Item itemComprado = new Item();
-                                itemComprado.setProduto(catalogo[i]);
-                                itemComprado.setQtd(qtdDigitada);
+                        //substitui o for
+                        Produto produtoEncontrado = meuEstoque.buscarProduto(codigoDigitado);
 
-                                minhaFatura.adicionarItem(itemComprado);
-                                System.out.println("Item comprado com sucesso!");
-                                
-                                break;
+                            if (produtoEncontrado != null){
+                                System.out.println("Digite a quantidade desejada: ");
+                                qtdDigitada = scanner.nextInt();
+                                scanner.nextLine();
+
+                                if (produtoEncontrado.retirarEstoque(qtdDigitada)){
+
+                                    Item itemComprado = new Item(produtoEncontrado, qtdDigitada);
+                                    minhaFatura.adicionarItem(itemComprado);
+                                    System.out.println("Item comprado com sucesso!");
+                                } else {
+                                    System.out.println("Erro! Quantidade desejada maior que estoque");
+                                }                                
+                            } else {
+                                System.out.println("Erro! Produto não encontrado no estoque");
                             }
-                        }
-                    break;
+                        break;
                 //ver fatura
                 case 2:
                     minhaFatura.verFatura();
@@ -85,6 +86,23 @@ public class Main{
                 case 5:
                     System.out.printf("Programa finalizado, fatura total: %.2f", minhaFatura.faturaTotal());
                         
+                    break;
+                //consultar produto
+                case 6: 
+                    System.out.println("Digite o código do produto para consulta: ");
+                    codigoDigitado = scanner.nextLine();
+
+                            Produto produtoConsultado = meuEstoque.buscarProduto(codigoDigitado);
+
+                            if (produtoConsultado != null){
+                                System.out.println("\n---Detalhes do produto:---\n");
+                                System.out.printf("Nome: %s\n", produtoConsultado.getNome());
+                                System.out.printf("Código: %s\n", produtoConsultado.getCodigo());
+                                System.out.printf("Preço: %.2f\n", produtoConsultado.getPreco());
+                                System.out.printf("Quantidade em estoque: %d\n", produtoConsultado.getEmEstoque());
+                            } else {
+                                System.out.println("Erro! Produto não existente no estoque");
+                            }
                     break;
                 default: 
                     System.out.println("Opção Inválida");

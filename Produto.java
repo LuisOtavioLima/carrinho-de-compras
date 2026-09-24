@@ -16,6 +16,12 @@ public class Produto {
 
     }
 
+    //substitui getValue, o código já é fornecido por getKey
+    @Override 
+    public String toString(){
+        return this.nome + "| Preço:  " + this.preco + "| Em estoque: " + this.emEstoque;
+    }
+
     public String getNome(){
         return nome;
     }

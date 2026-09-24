@@ -7,7 +7,7 @@ public class Estoque {
 
     public boolean adicionarProduto(Produto novoProduto){
         if (this.produtos.containsKey(novoProduto.getCodigo())){
-            System.out.println("Produto já existente no estoque")
+            System.out.println("Produto já existente no estoque");
             return false;
         } else {
             this.produtos.put(novoProduto.getCodigo(), novoProduto);
