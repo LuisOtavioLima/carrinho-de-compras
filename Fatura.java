@@ -15,6 +15,7 @@ public class Fatura {
     public void excluirItem(String codigoDesejado){
         for(int i = 0; i < this.itens.size(); i++){
             if(this.itens.get(i).getProduto().getCodigo().equals(codigoDesejado)){
+                this.itens.get(i).getProduto().addEstoque()
                 this.itens.remove(i);
                 break;
             }
