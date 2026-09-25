@@ -102,6 +102,7 @@ public class Main{
                                 System.out.printf("Quantidade em estoque: %d\n", produtoConsultado.getEmEstoque());
                             } else {
                                 System.out.println("Erro! Produto não existente no estoque");
+                                
                             }
                     break;
                 default: 

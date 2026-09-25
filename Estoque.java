@@ -5,6 +5,10 @@ public class Estoque {
     HashMap<String, Produto> produtos = new HashMap<>();
     private int tamanho = 0;
 
+    public int getTamanho(){
+        return tamanho;
+    }
+
     public boolean adicionarProduto(Produto novoProduto){
         if (this.produtos.containsKey(novoProduto.getCodigo())){
             System.out.println("Produto já existente no estoque");
@@ -17,7 +21,6 @@ public class Estoque {
         }
     }   
     
-
     public Produto buscarProduto(String codigo){
         return this.produtos.get(codigo);
     }
